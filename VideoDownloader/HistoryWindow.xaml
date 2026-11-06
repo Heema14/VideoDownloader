@@ -1,0 +1,143 @@
+﻿<Window x:Class="VideoDownloader.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VideoDownloader"
+        mc:Ignorable="d"
+        Title="Download History"
+        Height="600"
+        Width="900"
+        FontFamily="{StaticResource PoppinsMedium}"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Download History"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+
+        <DockPanel Grid.Row="1" Margin="0,0,0,15">
+
+            <TextBlock x:Name="HCountTxt"
+                       Text="Total downloads: 0"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+
+                <TextBox x:Name="SearchTxt"
+                         Focusable="True"
+                         Width="220"
+                         Height="35"
+                         Padding="8 0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"
+                         ToolTip="Search by title, URL or source" 
+                         TextChanged="SearchTxt_TextChanged" />
+
+                <ComboBox x:Name="StatusFilterComboBox"
+                           VerticalContentAlignment="Center"
+                           SelectedIndex="0"
+                           Width="100"
+                           Margin="12 0"
+                           SelectionChanged="StatusFilterComboBox_SelectionChanged">
+                    <ComboBoxItem Content="All"/>
+                    <ComboBoxItem Content="Completed"/>
+                    <ComboBoxItem Content="Failed"/>
+                    <ComboBoxItem Content="Cancelled"/>
+                </ComboBox>
+
+                <Button Content="Refresh"
+                        Width="100"
+                        Height="35"
+                        Cursor="Hand"
+                        Click="RefreshButton_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+        <DataGrid x:Name="HistoryDataGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  RowHeight="35">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Title"
+                    Binding="{Binding Title}"
+                    Width="2*"/>
+
+                <DataGridTextColumn 
+                    Header="Status"
+                    Binding="{Binding Status}"
+                    Width="100"/>
+
+                <DataGridTextColumn 
+                    Header="Source"
+                    Binding="{Binding Source}"
+                    Width="120"/>
+
+                <DataGridTextColumn 
+                    Header="Date"
+                    Binding="{Binding DownloadDate,
+                        StringFormat={}{0:yyyy-MM-dd HH:mm}}"
+                    Width="150"/>
+
+                <DataGridTextColumn 
+                    Header="Save Path"
+                    Binding="{Binding SavePath}"
+                    Width="2*"/>
+
+
+                <DataGridTemplateColumn Header="Actions" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                                <Button Content="📂"
+                                        Padding="8,5"
+                                        Margin="2"
+                                        Cursor="Hand"
+                                        Click="OpenFolderButton_Click"/>
+
+                                <Button Content="🗑️"
+                                        Width="38"
+                                        Height="30"
+                                        Margin="2"
+                                        Cursor="Hand"
+                                        ToolTip="Delete history record"
+                                        Click="DeleteRecordButton_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="3"
+                   Text="The history is shared between single-video and playlist downloads."
+                   TextWrapping="Wrap"
+                   Foreground="Gray"
+                   Margin="0,15,0,0"/>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/VideoDownloader
+/VideoDownloader/obj/Debug/net9.0-windows
+/VideoDownloader/obj
+/.vs/ProjectEvaluation
+/VideoDownloader/bin/Debug/net9.0-windows
+/VideoDownloader/Tools
+/VideoDownloader/DHJSON/download-history.json
